@@ -1,0 +1,131 @@
+/**
+ * Reference battery capacities (usable/net kWh, public manufacturer specs)
+ * for electric vehicles commonly sold in Portugal. Used to auto-fill the
+ * "Capacidade da bateria" field via the vehicle autocomplete combobox in
+ * App.jsx. Values are approximate — always confirm against the vehicle's
+ * documentation; the capacity field remains manually editable.
+ */
+export const VEHICLES = [
+  // BMW
+  { make: 'BMW', model: 'i3', variant: '120 Ah (hatchback, 2013-2022)', batteryKwh: 37.9 },
+  { make: 'BMW', model: 'i3', variant: '50 xDrive Sedan (Neue Klasse)', batteryKwh: 108.7 },
+  { make: 'BMW', model: 'i3', variant: '40 Sedan (Neue Klasse)', batteryKwh: 82.6 },
+  { make: 'BMW', model: 'i4', variant: 'eDrive35', batteryKwh: 66.7 },
+  { make: 'BMW', model: 'i4', variant: 'eDrive40 / M50', batteryKwh: 80.7 },
+  { make: 'BMW', model: 'i5', variant: 'eDrive40', batteryKwh: 81.2 },
+  { make: 'BMW', model: 'i7', variant: 'xDrive60', batteryKwh: 101.7 },
+  { make: 'BMW', model: 'iX1', variant: 'xDrive30', batteryKwh: 64.7 },
+  { make: 'BMW', model: 'iX2', variant: 'xDrive30', batteryKwh: 64.8 },
+  { make: 'BMW', model: 'iX3', variant: '(G08, até 2024)', batteryKwh: 74.0 },
+  { make: 'BMW', model: 'iX3', variant: '40 (Neue Klasse)', batteryKwh: 82.6 },
+  { make: 'BMW', model: 'iX3', variant: '50 xDrive (Neue Klasse)', batteryKwh: 108.7 },
+  { make: 'BMW', model: 'iX', variant: 'xDrive40', batteryKwh: 71.0 },
+  { make: 'BMW', model: 'iX', variant: 'xDrive50', batteryKwh: 105.2 },
+  // MINI
+  { make: 'MINI', model: 'Cooper SE', variant: '', batteryKwh: 36.6 },
+  { make: 'MINI', model: 'Aceman SE', variant: '', batteryKwh: 42.5 },
+  { make: 'MINI', model: 'Countryman E', variant: '', batteryKwh: 64.6 },
+  { make: 'MINI', model: 'Countryman SE ALL4', variant: '', batteryKwh: 64.6 },
+  // Tesla
+  { make: 'Tesla', model: 'Model 3', variant: 'RWD', batteryKwh: 60.0 },
+  { make: 'Tesla', model: 'Model 3', variant: 'Long Range / Performance', batteryKwh: 78.1 },
+  { make: 'Tesla', model: 'Model Y', variant: 'RWD', batteryKwh: 60.0 },
+  { make: 'Tesla', model: 'Model Y', variant: 'Long Range / Performance', batteryKwh: 78.1 },
+  { make: 'Tesla', model: 'Model S', variant: '', batteryKwh: 95.0 },
+  { make: 'Tesla', model: 'Model X', variant: '', batteryKwh: 95.0 },
+  // Volkswagen
+  { make: 'Volkswagen', model: 'ID.3', variant: 'Pure (45 kWh)', batteryKwh: 45.0 },
+  { make: 'Volkswagen', model: 'ID.3', variant: 'Pro (58 kWh)', batteryKwh: 58.0 },
+  { make: 'Volkswagen', model: 'ID.3', variant: 'Pro S (77 kWh)', batteryKwh: 77.0 },
+  { make: 'Volkswagen', model: 'ID.4', variant: 'Pure (52 kWh)', batteryKwh: 52.0 },
+  { make: 'Volkswagen', model: 'ID.4', variant: 'Pro (77 kWh)', batteryKwh: 77.0 },
+  { make: 'Volkswagen', model: 'ID.5', variant: 'Pro (77 kWh)', batteryKwh: 77.0 },
+  { make: 'Volkswagen', model: 'ID.7', variant: 'Pro (77 kWh)', batteryKwh: 77.0 },
+  // Audi
+  { make: 'Audi', model: 'Q4 e-tron', variant: '35', batteryKwh: 52.0 },
+  { make: 'Audi', model: 'Q4 e-tron', variant: '40 / 45 / 50', batteryKwh: 77.0 },
+  { make: 'Audi', model: 'Q6 e-tron', variant: '', batteryKwh: 94.9 },
+  { make: 'Audi', model: 'A6 e-tron', variant: '', batteryKwh: 94.9 },
+  // Škoda / Cupra
+  { make: 'Škoda', model: 'Enyaq', variant: '60 (58 kWh)', batteryKwh: 58.0 },
+  { make: 'Škoda', model: 'Enyaq', variant: '80 (77 kWh)', batteryKwh: 77.0 },
+  { make: 'Cupra', model: 'Born', variant: '58 kWh', batteryKwh: 58.0 },
+  { make: 'Cupra', model: 'Born', variant: '77 kWh', batteryKwh: 77.0 },
+  { make: 'Cupra', model: 'Tavascan', variant: '', batteryKwh: 77.0 },
+  // Renault / Dacia
+  { make: 'Renault', model: 'Zoe', variant: '', batteryKwh: 52.0 },
+  { make: 'Renault', model: 'Megane E-Tech', variant: 'EV40', batteryKwh: 40.0 },
+  { make: 'Renault', model: 'Megane E-Tech', variant: 'EV60', batteryKwh: 60.0 },
+  { make: 'Renault', model: 'Scenic E-Tech', variant: '60 kWh', batteryKwh: 60.0 },
+  { make: 'Renault', model: 'Scenic E-Tech', variant: '87 kWh', batteryKwh: 87.0 },
+  { make: 'Dacia', model: 'Spring', variant: '', batteryKwh: 26.8 },
+  // Peugeot / Citroën / Opel / DS
+  { make: 'Peugeot', model: 'e-208', variant: '', batteryKwh: 51.0 },
+  { make: 'Peugeot', model: 'e-2008', variant: '', batteryKwh: 54.0 },
+  { make: 'Peugeot', model: 'e-308', variant: '', batteryKwh: 51.0 },
+  { make: 'Peugeot', model: 'e-3008', variant: '73 kWh', batteryKwh: 73.0 },
+  { make: 'Peugeot', model: 'e-3008', variant: '98 kWh', batteryKwh: 98.0 },
+  { make: 'Citroën', model: 'ë-C3', variant: '', batteryKwh: 44.0 },
+  { make: 'Citroën', model: 'ë-C4', variant: '', batteryKwh: 50.8 },
+  { make: 'Opel', model: 'Corsa Electric', variant: '', batteryKwh: 51.0 },
+  { make: 'Opel', model: 'Mokka Electric', variant: '', batteryKwh: 50.8 },
+  { make: 'DS', model: 'DS 3 E-Tense', variant: '', batteryKwh: 50.8 },
+  // Hyundai / Kia
+  { make: 'Hyundai', model: 'Kona Electric', variant: '48 kWh', batteryKwh: 48.4 },
+  { make: 'Hyundai', model: 'Kona Electric', variant: '65 kWh', batteryKwh: 64.8 },
+  { make: 'Hyundai', model: 'Ioniq 5', variant: '58 kWh', batteryKwh: 58.0 },
+  { make: 'Hyundai', model: 'Ioniq 5', variant: '77 kWh', batteryKwh: 77.4 },
+  { make: 'Hyundai', model: 'Ioniq 6', variant: '53 kWh', batteryKwh: 53.0 },
+  { make: 'Hyundai', model: 'Ioniq 6', variant: '77 kWh', batteryKwh: 77.4 },
+  { make: 'Kia', model: 'Niro EV', variant: '', batteryKwh: 64.8 },
+  { make: 'Kia', model: 'EV3', variant: '', batteryKwh: 81.4 },
+  { make: 'Kia', model: 'EV6', variant: '58 kWh', batteryKwh: 58.0 },
+  { make: 'Kia', model: 'EV6', variant: '77 kWh', batteryKwh: 77.4 },
+  { make: 'Kia', model: 'EV9', variant: '76 kWh', batteryKwh: 76.1 },
+  { make: 'Kia', model: 'EV9', variant: '99 kWh', batteryKwh: 99.8 },
+  // Nissan
+  { make: 'Nissan', model: 'Leaf', variant: '40 kWh', batteryKwh: 39.0 },
+  { make: 'Nissan', model: 'Leaf', variant: '59 kWh', batteryKwh: 59.0 },
+  { make: 'Nissan', model: 'Ariya', variant: '63 kWh', batteryKwh: 63.0 },
+  { make: 'Nissan', model: 'Ariya', variant: '87 kWh', batteryKwh: 87.0 },
+  // Mercedes-Benz
+  { make: 'Mercedes-Benz', model: 'EQA', variant: '', batteryKwh: 66.5 },
+  { make: 'Mercedes-Benz', model: 'EQB', variant: '', batteryKwh: 66.5 },
+  { make: 'Mercedes-Benz', model: 'EQC', variant: '', batteryKwh: 80.0 },
+  { make: 'Mercedes-Benz', model: 'EQE', variant: '', batteryKwh: 90.6 },
+  { make: 'Mercedes-Benz', model: 'EQS', variant: '', batteryKwh: 107.8 },
+  // CLA 250 e PHEV: 10.9 kWh usable (15.6 kWh gross)
+  { make: 'Mercedes-Benz', model: 'CLA 250 e', variant: 'Shooting Brake (C118, 2020)', batteryKwh: 10.9 },
+  // Volvo / Polestar
+  { make: 'Volvo', model: 'EX30', variant: '51 kWh', batteryKwh: 51.0 },
+  { make: 'Volvo', model: 'EX30', variant: '69 kWh', batteryKwh: 69.0 },
+  { make: 'Volvo', model: 'EX40 (XC40 Recharge)', variant: '', batteryKwh: 78.0 },
+  { make: 'Volvo', model: 'EC40 (C40 Recharge)', variant: '', batteryKwh: 78.0 },
+  { make: 'Volvo', model: 'EX90', variant: '', batteryKwh: 111.0 },
+  { make: 'Polestar', model: '2', variant: '', batteryKwh: 82.0 },
+  { make: 'Polestar', model: '3', variant: '', batteryKwh: 111.0 },
+  { make: 'Polestar', model: '4', variant: '', batteryKwh: 100.0 },
+  // Ford
+  { make: 'Ford', model: 'Mustang Mach-E', variant: '70 kWh', batteryKwh: 70.0 },
+  { make: 'Ford', model: 'Mustang Mach-E', variant: '91 kWh', batteryKwh: 91.0 },
+  { make: 'Ford', model: 'Explorer', variant: '', batteryKwh: 77.0 },
+  { make: 'Ford', model: 'Puma Gen-E', variant: '', batteryKwh: 43.6 },
+  // Diversos
+  { make: 'Honda', model: 'e', variant: '', batteryKwh: 35.5 },
+  { make: 'Mazda', model: 'MX-30', variant: '', batteryKwh: 35.5 },
+  { make: 'Jaguar', model: 'I-Pace', variant: '', batteryKwh: 90.0 },
+  { make: 'smart', model: '#1', variant: '', batteryKwh: 66.0 },
+  { make: 'smart', model: '#3', variant: '', batteryKwh: 66.0 },
+  { make: 'MG', model: '4', variant: '51 kWh', batteryKwh: 51.0 },
+  { make: 'MG', model: '4', variant: '64 kWh', batteryKwh: 64.0 },
+  { make: 'MG', model: '4', variant: '77 kWh', batteryKwh: 77.0 },
+  { make: 'MG', model: 'ZS EV', variant: '', batteryKwh: 72.6 },
+  { make: 'BYD', model: 'Dolphin', variant: '', batteryKwh: 60.4 },
+  { make: 'BYD', model: 'Atto 3', variant: '', batteryKwh: 60.5 },
+  { make: 'BYD', model: 'Seal', variant: '', batteryKwh: 82.5 },
+  { make: 'Fiat', model: '500e', variant: '24 kWh', batteryKwh: 21.3 },
+  { make: 'Fiat', model: '500e', variant: '42 kWh', batteryKwh: 37.3 },
+].map((vehicle) => ({
+  ...vehicle,
+  label: `${vehicle.make} ${vehicle.model}${vehicle.variant ? ` ${vehicle.variant}` : ''} (${vehicle.batteryKwh.toLocaleString('pt-PT', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} kWh)`,
+}))
