@@ -9,8 +9,8 @@ import { calculateCardCost, findBestCardForStation } from './cards.js'
  *  - REGULAR: price for drivers with a contract/subscription with a CEME.
  *
  * We prefer AD_HOC_PAYMENT (most relevant for an occasional/any driver), then the
- * blank bucket. REGULAR tariffs require a CEME contract and must not be treated
- * as a walk-up price when no card is selected.
+ * blank bucket. When neither is available, REGULAR is the best published CEME
+ * estimate for a driver without an active card.
  */
 export function resolveSocketPricing(tarifas) {
   const buckets = { AD_HOC_PAYMENT: [], BLANK: [], REGULAR: [] }
@@ -26,7 +26,9 @@ export function resolveSocketPricing(tarifas) {
     ? 'AD_HOC_PAYMENT'
     : buckets.BLANK.length
       ? 'BLANK'
-      : null
+      : buckets.REGULAR.length
+        ? 'REGULAR'
+        : null
 
   if (!category) return null
 
@@ -72,11 +74,14 @@ export function calculateStationPricing({
   const adHocEstimatedCost = rawPricing ? estimateCost(rawPricing, energyNeeded, durationMinutes ?? 0) : null
 
   // Reference Standard CEME market cost (~0.185 €/kWh energy + 0.15 € session + OPC station tariff)
+  const STD_CEME_ENERGY_RATE = 0.185
+  const STD_CEME_ACTIVATION_FEE = 0.15
   let standardCemeCost = null
+  let standardCemeEnergyCost = 0
   if (headlineSocket && headlineSocket.tarifas && headlineSocket.tarifas.length > 0) {
     const stdRefCard = {
-      kwhPrice: 0.185,
-      activationFee: 0.15,
+      kwhPrice: STD_CEME_ENERGY_RATE,
+      activationFee: STD_CEME_ACTIVATION_FEE,
       minuteFee: 0.0,
       discountPercent: 0,
       pricingMode: 'standard',
@@ -84,6 +89,7 @@ export function calculateStationPricing({
     const stdRes = calculateCardCost(stdRefCard, headlineSocket, energyNeeded, durationMinutes ?? 0, station)
     if (stdRes && stdRes.totalCost != null) {
       standardCemeCost = stdRes.totalCost
+      standardCemeEnergyCost = stdRes.cemeBreakdown?.cemeEnergy ?? STD_CEME_ENERGY_RATE * energyNeeded
     }
   }
 
@@ -115,11 +121,21 @@ export function calculateStationPricing({
     }
   }
 
-  // Determine final effective cost for sorting and display
+  // Determine final effective cost for sorting and display.
+  // When no card is active, use the published walk-up price only if it includes an energy rate.
+  // Otherwise (e.g. REGULAR tariff with 0 €/kWh energy) fall back to a standard CEME market
+  // reference so the energy portion is never shown as 0 €/kWh.
+  const hasWalkUpEnergyRate = rawPricing?.energy?.valor > 0
+  const noCardEstimatedCost =
+    activeCardId === 'none' || !enabledCards.length
+      ? (hasWalkUpEnergyRate ? adHocEstimatedCost : standardCemeCost)
+      : null
+
   const effectiveCost =
     activeCardResult?.cost?.totalCost ??
+    noCardEstimatedCost ??
     adHocEstimatedCost ??
-    (activeCardId === 'none' || !enabledCards.length ? null : standardCemeCost)
+    standardCemeCost
 
   // Benchmark reference: use Ad-Hoc walk-up price if available, otherwise Standard CEME market reference
   const benchmarkCost = adHocEstimatedCost ?? standardCemeCost
@@ -151,6 +167,9 @@ export function calculateStationPricing({
     opcFlatFee,
     opcEnergyRate,
     opcTimeCost,
+    estimatedCemeEnergyRate: STD_CEME_ENERGY_RATE,
+    estimatedCemeActivationFee: STD_CEME_ACTIVATION_FEE,
+    estimatedCemeEnergyCost: standardCemeEnergyCost,
   }
 }
 

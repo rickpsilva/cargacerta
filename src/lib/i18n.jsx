@@ -154,6 +154,8 @@ export const DICTIONARY = {
     alternativeCardTip: '💡 Sugestão: Com o plano {name} pagaria apenas {cost} neste posto.',
     teslaNetworkNotice: 'ℹ️ Rede proprietária Tesla: Cartões CEME (BMW, Galp, EDP, etc.) não são aceites. Inicie a sessão na App Tesla.',
     publishedTariffLabel: 'Tarifário publicado:',
+    estimatedCemeLabel: 'Estimativa CEME',
+    estimatedCemeNote: 'Preço de energia estimado com base numa tarifa CEME de mercado (o valor final depende do contrato que escolher).',
 
     // Map Selected Station Card
     mapSelectedStationTitle: 'Posto Selecionado no Mapa',
@@ -448,6 +450,8 @@ export const DICTIONARY = {
     alternativeCardTip: '💡 Suggestion: With the {name} plan you would only pay {cost} at this station.',
     teslaNetworkNotice: 'ℹ️ Proprietary Tesla Network: CEME cards (BMW, Galp, EDP, etc.) are not accepted. Start the session in the Tesla App.',
     publishedTariffLabel: 'Published tariff:',
+    estimatedCemeLabel: 'Estimated CEME',
+    estimatedCemeNote: 'Energy price estimated using a market CEME reference rate (final price depends on the contract you choose).',
 
     // Map Selected Station Card
     mapSelectedStationTitle: 'Selected Station on Map',

@@ -701,7 +701,6 @@ function App() {
                     distanceKm,
                     activeCardResult,
                     bestCardResult,
-                    adHocEstimatedCost,
                     benchmarkCost,
                     effectiveCost,
                     savings,
@@ -709,6 +708,9 @@ function App() {
                     opcFlatFee,
                     opcEnergyRate,
                     opcTimeCost,
+                    estimatedCemeEnergyRate,
+                    estimatedCemeActivationFee,
+                    estimatedCemeEnergyCost,
                   }) => {
                     const isExpanded = expandedStationId === station.id
                     const isSelectedForSim = selectedSimStation?.station.id === station.id
@@ -877,7 +879,7 @@ function App() {
                             ) : !activeCardResult && (!rawPricing || !walkUpHasCharge) ? (
                               <p className="mobi-note">{t('noTariff')}</p>
                             ) : !activeCardResult ? (
-                              /* 2. Preço avulso sem cartão CEME */
+                              /* 2. Sem cartão CEME: estimativa de mercado OPC + CEME de referência */
                               <>
                                 {walkUpEnergyRate > 0 ? (
                                   <div className="breakdown-item">
@@ -891,11 +893,14 @@ function App() {
                                   </div>
                                 ) : (
                                   <div className="breakdown-item">
-                                    <span>{t('breakdownEnergyStation', {
-                                      kwh: energyNeeded.toFixed(1),
-                                      rate: '0.000',
-                                    })}</span>
-                                    <strong>0,00 €</strong>
+                                    <span>
+                                      {t('breakdownEnergyCeme', {
+                                        name: t('estimatedCemeLabel'),
+                                        kwh: energyNeeded.toFixed(1),
+                                        rate: estimatedCemeEnergyRate.toFixed(3),
+                                      })}
+                                    </span>
+                                    <strong>{formatEuro(estimatedCemeEnergyCost)}</strong>
                                   </div>
                                 )}
 
@@ -916,15 +921,19 @@ function App() {
                                   </div>
                                 )}
 
-                                {walkUpFlatFee > 0 && (
+                                {(walkUpFlatFee > 0 || estimatedCemeActivationFee > 0) && (
                                   <div className="breakdown-subitem">
                                     <span>{t('breakdownActivationFee')}</span>
-                                    <strong>{formatEuro(walkUpFlatFee)}</strong>
+                                    <strong>
+                                      {formatEuro(walkUpFlatFee + estimatedCemeActivationFee)}
+                                    </strong>
                                   </div>
                                 )}
 
                                 <p className="mobi-note">
-                                  {t('publishedTariffLabel')} {rawPricing?.energy?.raw ?? 'n/d'}
+                                  {rawPricing?.energy?.valor > 0
+                                    ? `${t('publishedTariffLabel')} ${rawPricing.energy.raw}`
+                                    : t('estimatedCemeNote')}
                                   {rawPricing && ` · ${getPricingCategoryLabel(rawPricing.category, lang)}`}
                                 </p>
                               </>
