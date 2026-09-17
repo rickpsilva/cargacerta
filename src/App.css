@@ -204,10 +204,10 @@ h2 { color: #183b35; font-size: 29px; letter-spacing: -.05em; margin-bottom: 7px
 .progress-bar { background: #dce6df; border-radius: 999px; height: 8px; overflow: hidden; width: 100%; }
 .progress-bar-fill { background: #27744c; border-radius: 999px; height: 100%; transition: width .2s ease; }
 .station-grid {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 16px;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-  align-items: stretch;
+  align-items: flex-start;
 }
 .station-card {
   background: white;
@@ -216,7 +216,9 @@ h2 { color: #183b35; font-size: 29px; letter-spacing: -.05em; margin-bottom: 7px
   padding: 18px 20px;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1 1 290px;
+  min-width: 290px;
+  max-width: 100%;
   box-sizing: border-box;
   box-shadow: 0 2px 8px rgba(22, 75, 66, 0.04);
   transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
@@ -844,7 +846,7 @@ footer a { color: #235f51; }
   main { padding: 0 24px 42px; }
   .planner { grid-template-columns: 1fr; gap: 28px; }
   .energy-summary { border-left: 0; border-top: 1px solid #3e7067; padding: 20px 0 0; }
-  .station-grid { grid-template-columns: repeat(2, 1fr); }
+  .station-card { flex: 1 1 calc(50% - 8px); min-width: calc(50% - 8px); }
   .filters { grid-template-columns: 1fr 1fr; }
   .filters .search-field { grid-column: 1 / -1; }
   .cards-grid, .presets-grid, .explainer-grid { grid-template-columns: 1fr; }
@@ -856,7 +858,8 @@ footer a { color: #235f51; }
   .official-link { font-size: 11px; }
   .hero-section { padding: 40px 0 32px; }
   .planner { padding: 26px 22px; }
-  .planner-fields, .filters, .station-grid, footer { grid-template-columns: 1fr; }
+  .planner-fields, .filters, footer { grid-template-columns: 1fr; }
+  .station-card { flex: 1 1 100%; min-width: 100%; }
   .filters { margin-top: 24px; }
   .location-button { min-height: 46px; }
   .station-section { padding: 70px 0 50px; }
